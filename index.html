@@ -18,18 +18,8 @@
         margin: 0;
         font-family: 'Arial', sans-serif;
         color: #fff;
-        position: relative;
         overflow: hidden;
-      }
-
-      #main {
-        text-align: center;
         position: relative;
-        z-index: 10;
-        background-color: rgba(0, 0, 0, 0.7);
-        padding: 40px;
-        border-radius: 30px;
-        box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.6);
       }
 
       h1 {
@@ -47,10 +37,16 @@
         letter-spacing: 0.05em;
       }
 
+      .buttons-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
       .button {
         width: 220px;
         height: 60px;
-        margin: 10px;
+        margin: 10px auto;
         padding: 10px 20px;
         border: none;
         outline: none;
@@ -59,23 +55,22 @@
         font-weight: bold;
         text-transform: uppercase;
         color: #fff;
-        background: linear-gradient(45deg, #ff00cc, #0000ff, #00ff00, #ffff00);
-        background-size: 300%;
-        border-radius: 25px;
-        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+        background: linear-gradient(145deg, #282828, #383838);
+        border: 2px solid #000;
+        border-radius: 10px;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5), -5px -5px 10px rgba(255, 255, 255, 0.1);
         transition: all 0.3s ease-in-out;
         position: relative;
       }
 
       .button:hover {
-        background-position: 100%;
-        transform: translateY(-5px) scale(1.05);
-        box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.5);
+        transform: translateY(-5px);
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.8), -5px -5px 15px rgba(255, 255, 255, 0.3);
       }
 
       .button:active {
-        transform: scale(0.95);
-        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+        transform: translateY(3px);
+        box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.8);
       }
 
       footer {
@@ -89,70 +84,47 @@
         z-index: 10;
       }
 
-      /* Background moving effect */
-      .background {
+      /* Neon effect circling the entire browser */
+      .neon-border {
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: url('https://files.catbox.moe/n7a0v4.jpg');
-        background-size: cover;
-        animation: moveBackground 15s infinite alternate;
-        z-index: -1;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 0;
+        border: 10px solid transparent;
+        background: linear-gradient(to right, #ff0000, #00ff00, #0000ff, #ffff00, #ff0000);
+        background-size: 300%;
+        animation: neonBorder 5s linear infinite;
       }
 
-      @keyframes moveBackground {
+      @keyframes neonBorder {
         0% {
-          transform: translateY(0) scale(1);
-        }
-        50% {
-          transform: translateY(-10%) scale(1.05);
+          background-position: 0% 50%;
         }
         100% {
-          transform: translateY(10%) scale(1.1);
+          background-position: 100% 50%;
         }
       }
 
-      /* Snake-like gradient border effect */
-      #main {
-        border: 5px solid transparent;
-        background-clip: padding-box;
-        animation: gradientSnake 5s linear infinite;
-      }
-
-      @keyframes gradientSnake {
-        0% {
-          border-image: linear-gradient(45deg, #ff00cc, #0000ff, #00ff00, #ffff00) 1;
-        }
-        50% {
-          border-image: linear-gradient(135deg, #ff00cc, #0000ff, #00ff00, #ffff00) 1;
-        }
-        100% {
-          border-image: linear-gradient(225deg, #ff00cc, #0000ff, #00ff00, #ffff00) 1;
-        }
-      }
-
-      /* Multiple fast dropping red dots */
+      /* Red dots falling like heavy rain */
       .dot {
         position: absolute;
         top: -10px;
-        left: 50%;
         background-color: red;
         width: 10px;
         height: 10px;
         border-radius: 50%;
-        animation: dropDot 0.11111s infinite linear;
-        z-index: -1;
+        animation: dropDot 1s infinite linear;
       }
 
       @keyframes dropDot {
         100% {
-          transform: translateY(100vh);
+          transform: translateY(110vh);
         }
       }
 
-      /* Create multiple red dots at random positions */
       .dot-container {
         position: absolute;
         top: 0;
@@ -160,47 +132,51 @@
         width: 100%;
         height: 100%;
         pointer-events: none;
+        overflow: hidden;
       }
-
     </style>
   </head>
   <body>
-    <div class="background"></div>
-    <div class="dot-container">
-      <!-- Creating multiple dots using JavaScript -->
-    </div>
+    <div class="neon-border"></div>
+    <div class="dot-container"></div>
     <div id="main">
       <h1>𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘</h1>
       <h3>Welcome to ES TEAMS TECH</h3>
-      <button class="button" onclick="location.href='/whatsapp'">WhatsApp Channel</button>
-      <button class="button" onclick="location.href='/telegram'">Telegram Channel</button>
-      <button class="button" onclick="closeBrowser()">CLOSE</button>
-      <button class="button" onclick="location.href='/bots'">BOTS</button>
-      <button class="button" onclick="location.href='/premium'">PREMIUM APPS</button>
+      <div class="buttons-container">
+        <button class="button" onclick="location.href='/whatsapp'">WhatsApp Channel</button>
+        <button class="button" onclick="location.href='/telegram'">Telegram Channel</button>
+        <button class="button" onclick="location.href='/bots'">BOTS</button>
+        <button class="button" onclick="location.href='/premium'">PREMIUM APPS</button>
+        <button class="button" onclick="closeBrowser()">CLOSE</button>
+      </div>
     </div>
     <footer>
       <p>𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗧𝗘𝗖𝗛®</p>
     </footer>
 
     <script>
-      // Close browser
-      function closeBrowser() {
-        window.close();
-      }
-
-      // Create multiple red dots that drop rapidly
+      // Create multiple red dots that drop rapidly like heavy rain
       function createDots() {
         const container = document.querySelector('.dot-container');
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 150; i++) {
           const dot = document.createElement('div');
           dot.classList.add('dot');
           dot.style.left = `${Math.random() * 100}vw`;
+          dot.style.animationDelay = `${Math.random()}s`;
           container.appendChild(dot);
         }
       }
 
-      // Call the createDots function to generate the dots
       createDots();
+
+      // Close the browser tab
+      function closeBrowser() {
+        if (window.close) {
+          window.close();
+        } else {
+          alert('Cannot close this tab automatically. Please close it manually.');
+        }
+      }
     </script>
   </body>
-</html>
+  </html>

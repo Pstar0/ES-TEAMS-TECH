@@ -13,13 +13,32 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        background: linear-gradient(135deg, #1c1c1c, #000000);
+        background: url('https://files.catbox.moe/n7a0v4.jpg') no-repeat center center;
+        background-size: cover;
         height: 100vh;
         margin: 0;
         font-family: 'Arial', sans-serif;
         color: #fff;
         overflow: hidden;
         position: relative;
+        animation: moveBackground 6s infinite alternate ease-in-out;
+      }
+
+      @keyframes moveBackground {
+        0% {
+          background-position: center top;
+        }
+        100% {
+          background-position: center bottom;
+        }
+      }
+
+      #main {
+        text-align: center;
+        z-index: 10;
+        background-color: rgba(0, 0, 0, 0.8);
+        padding: 20px;
+        border-radius: 10px;
       }
 
       h1 {
@@ -41,6 +60,7 @@
         display: flex;
         flex-direction: column;
         gap: 15px;
+        margin-top: 20px;
       }
 
       .button {
@@ -154,4 +174,4 @@
       }
     </script>
   </body>
-  </html>
+</html>

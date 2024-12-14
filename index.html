@@ -8,6 +8,7 @@
     <meta property="og:image" content="https://files.catbox.moe/n7a0v4.jpg">
     <meta property="og:title" content="𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘">
     <style>
+      /* Base Body Styles */
       body {
         display: flex;
         justify-content: center;
@@ -20,7 +21,7 @@
         font-family: 'Arial', sans-serif;
         color: #fff;
         overflow: hidden;
-        opacity: 0; /* Start hidden */
+        opacity: 0;
         animation: fadeInBackground 2s ease-in-out forwards;
       }
 
@@ -33,6 +34,28 @@
         }
       }
 
+      /* Red Dot Rain Animation */
+      .red-dot {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        background: red;
+        border-radius: 50%;
+        animation: redDotRain 1s linear infinite;
+      }
+
+      @keyframes redDotRain {
+        0% {
+          top: -10px;
+          opacity: 1;
+        }
+        100% {
+          top: 110vh;
+          opacity: 0.1;
+        }
+      }
+
+      /* Main Content Section */
       #main {
         text-align: center;
         z-index: 10;
@@ -50,6 +73,20 @@
         }
         100% {
           opacity: 1;
+        }
+      }
+
+      /* Floating Text Animation */
+      .floating {
+        animation: floatUpDown 3s ease-in-out infinite;
+      }
+
+      @keyframes floatUpDown {
+        0%, 100% {
+          transform: translateY(-5px);
+        }
+        50% {
+          transform: translateY(5px);
         }
       }
 
@@ -125,6 +162,12 @@
         animation: fadeInButton 1s ease-in-out forwards;
       }
 
+      .button:active {
+        background: neon-green;
+        box-shadow: 0px 0px 20px rgba(0, 255, 0, 0.7);
+        transform: scale(0.95);
+      }
+
       @keyframes fadeInButton {
         0% {
           opacity: 0;
@@ -165,13 +208,30 @@
         font-size: 0.9rem;
         color: #888;
         z-index: 10;
+        animation: fadeInFooter 2.5s ease-in-out forwards 3s;
       }
     </style>
   </head>
   <body>
+    <!-- Red Dots -->
+    <div class="red-dot"></div>
+    <div class="red-dot"></div>
+    <div class="red-dot"></div>
+    <script>
+      for (let i = 0; i < 150; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('red-dot');
+        dot.style.left = Math.random() * 100 + 'vw';
+        dot.style.animationDelay = Math.random() * 2 + 's';
+        dot.style.animationDuration = Math.random() * 1 + 0.5 + 's';
+        document.body.appendChild(dot);
+      }
+    </script>
+
+    <!-- Main Content -->
     <div id="main">
-      <h1>𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘</h1>
-      <h3>Welcome to ES TEAMS TECH</h3>
+      <h1 class="floating">𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘</h1>
+      <h3 class="floating">Welcome to ES TEAMS TECH</h3>
       <div class="buttons-container">
         <button class="button" onclick="location.href='/whatsapp'">WhatsApp Channel</button>
         <button class="button" onclick="location.href='/telegram'">Telegram Channel</button>
@@ -180,20 +240,9 @@
         <button class="button" onclick="closeBrowser()">CLOSE</button>
       </div>
     </div>
-    <footer>
+
+    <footer class="floating">
       <p>𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗧𝗘𝗖𝗛®</p>
     </footer>
-
-    <script>
-      // Close the browser tab or show alert
-      function closeBrowser() {
-        try {
-          window.open('', '_self');
-          window.close();
-        } catch (e) {
-          alert('Cannot close this tab automatically. Please close it manually.');
-        }
-      }
-    </script>
   </body>
-  </html>
+      </html>

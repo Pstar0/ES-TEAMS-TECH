@@ -21,15 +21,18 @@
         color: #fff;
         overflow: hidden;
         position: relative;
-        animation: moveBackground 6s infinite alternate ease-in-out;
+        animation: moveBackground 10s infinite alternate ease-in-out;
       }
 
       @keyframes moveBackground {
         0% {
-          background-position: center top;
+          background-position: top center;
+        }
+        50% {
+          background-position: center center;
         }
         100% {
-          background-position: center bottom;
+          background-position: bottom center;
         }
       }
 
@@ -39,10 +42,11 @@
         background-color: rgba(0, 0, 0, 0.8);
         padding: 20px;
         border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
       }
 
       h1 {
-        font-size: 3rem;
+        font-size: 2.5rem;
         color: #f0f0f0;
         text-transform: uppercase;
         margin: 0;
@@ -50,9 +54,9 @@
       }
 
       h3 {
-        font-size: 1.2rem;
+        font-size: 1rem;
         font-weight: 300;
-        margin: 1rem 0;
+        margin: 0.8rem 0;
         letter-spacing: 0.05em;
       }
 
@@ -64,33 +68,34 @@
       }
 
       .button {
-        width: 220px;
-        height: 60px;
+        width: 200px;
+        height: 50px;
         margin: 10px auto;
         padding: 10px 20px;
         border: none;
         outline: none;
         cursor: pointer;
-        font-size: 1.2rem;
+        font-size: 1rem;
         font-weight: bold;
         text-transform: uppercase;
         color: #fff;
         background: linear-gradient(145deg, #282828, #383838);
-        border: 2px solid #000;
         border-radius: 10px;
-        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5), -5px -5px 10px rgba(255, 255, 255, 0.1);
+        box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.8), inset -2px -2px 5px rgba(255, 255, 255, 0.1);
         transition: all 0.3s ease-in-out;
         position: relative;
+        overflow: hidden;
       }
 
       .button:hover {
-        transform: translateY(-5px);
-        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.8), -5px -5px 15px rgba(255, 255, 255, 0.3);
+        box-shadow: 0 0 20px #00ffcc, 0 0 30px #00ffcc;
+        color: #00ffcc;
+        transform: scale(1.05);
       }
 
       .button:active {
-        transform: translateY(3px);
-        box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.8);
+        transform: scale(0.98);
+        box-shadow: inset 0 0 15px #00ffcc;
       }
 
       footer {
@@ -164,14 +169,15 @@
 
       createDots();
 
-      // Close the browser tab
+      // Close the browser tab or show alert
       function closeBrowser() {
-        if (window.close) {
+        try {
+          window.open('', '_self');
           window.close();
-        } else {
+        } catch (e) {
           alert('Cannot close this tab automatically. Please close it manually.');
         }
       }
     </script>
   </body>
-</html>
+  </html>

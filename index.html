@@ -13,7 +13,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        background: #000000;
+        background: linear-gradient(135deg, #1c1c1c, #000000);
         height: 100vh;
         margin: 0;
         font-family: 'Arial', sans-serif;
@@ -84,30 +84,6 @@
         z-index: 10;
       }
 
-      /* Neon effect circling the entire browser */
-      .neon-border {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        pointer-events: none;
-        z-index: 0;
-        border: 10px solid transparent;
-        background: linear-gradient(to right, #ff0000, #00ff00, #0000ff, #ffff00, #ff0000);
-        background-size: 300%;
-        animation: neonBorder 5s linear infinite;
-      }
-
-      @keyframes neonBorder {
-        0% {
-          background-position: 0% 50%;
-        }
-        100% {
-          background-position: 100% 50%;
-        }
-      }
-
       /* Red dots falling like heavy rain */
       .dot {
         position: absolute;
@@ -137,7 +113,6 @@
     </style>
   </head>
   <body>
-    <div class="neon-border"></div>
     <div class="dot-container"></div>
     <div id="main">
       <h1>𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘</h1>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘</title>
+    <meta property="og:image" content="https://files.catbox.moe/n7a0v4.jpg">
+    <meta property="og:title" content="𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘">
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: #000000;
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+        color: #ffffff;
+        position: relative;
+      }
+
+      #main {
+        text-align: center;
+        position: relative;
+        z-index: 10;
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 20px;
+        border-radius: 10px;
+      }
+
+      h1 {
+        font-size: 3rem;
+        color: #f0f0f0;
+        text-transform: uppercase;
+        margin: 0;
+        letter-spacing: 0.1em;
+      }
+
+      h3 {
+        font-size: 1.2rem;
+        font-weight: 300;
+        margin: 1rem 0;
+        letter-spacing: 0.05em;
+      }
+
+      .button {
+        width: 200px;
+        height: 60px;
+        margin: 10px;
+        padding: 10px 20px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #fff;
+        background: linear-gradient(45deg, #ff00cc, #0000ff, #00ff00, #ffff00);
+        background-size: 300%;
+        border-radius: 25px;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease-in-out;
+        position: relative;
+      }
+
+      .button:hover {
+        background-position: 100%;
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.5);
+      }
+
+      .button:active {
+        transform: scale(0.95);
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+      }
+
+      footer {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        font-size: 0.9rem;
+        color: #888;
+        z-index: 10;
+      }
+
+      /* Moving background animation */
+      .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('https://files.catbox.moe/n7a0v4.jpg');
+        background-size: cover;
+        animation: moveBackground 15s infinite alternate;
+        z-index: -1;
+      }
+
+      @keyframes moveBackground {
+        0% {
+          transform: translateY(0) scale(1);
+        }
+        50% {
+          transform: translateY(-10%) scale(1.05);
+        }
+        100% {
+          transform: translateY(10%) scale(1.1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="background"></div>
+    <div id="main">
+      <h1>𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘</h1>
+      <h3>Your trusted tech solution</h3>
+      <button class="button" onclick="playClickSound(); location.href='/whatsapp'">WhatsApp Channel</button>
+      <button class="button" onclick="playClickSound(); location.href='/telegram'">Telegram Channel</button>
+      <button class="button" onclick="playClickSound(); location.href='https://whatsapp.com/channel/0029Vaj1vKSK5cDDT4tVvY1y'">End</button>
+    </div>
+    <footer>
+      <p>𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗧𝗘𝗖𝗛®</p>
+    </footer>
+
+    <!-- Click Sound -->
+    <audio id="clickSound" src="https://example.com/click.mp3" preload="auto"></audio>
+
+    <!-- Background Music -->
+    <audio id="backgroundAudio" autoplay loop>
+      <source src="https://raw.githubusercontent.com/Pstar0/ES-TEAMS-SITE/main/TikTok_Hit_-_Mockingbird_Sped_Up_Version__CeeNaija.com_.mp3" type="audio/mp3">
+    </audio>
+
+    <script>
+      // Play click sound for buttons
+      function playClickSound() {
+        var sound = document.getElementById("clickSound");
+        sound.play();
+      }
+    </script>
+  </body>
+</html>

@@ -2,24 +2,19 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘</title>
-    <meta property="og:image" content="https://files.catbox.moe/n7a0v4.jpg">
-    <meta property="og:title" content="𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘">
     <style>
       /* Base Body Styles */
       body {
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: column;
         background: url('https://files.catbox.moe/n7a0v4.jpg') no-repeat center center;
         background-size: cover;
         height: 100vh;
         margin: 0;
-        font-family: 'Arial', sans-serif;
-        color: #fff;
+        font-family: Arial, sans-serif;
         overflow: hidden;
         opacity: 0;
         animation: fadeInBackground 2s ease-in-out forwards;
@@ -34,14 +29,14 @@
         }
       }
 
-      /* Red Dot Rain Animation */
+      /* Red Dot Rain */
       .red-dot {
         position: absolute;
         width: 5px;
         height: 5px;
         background: red;
         border-radius: 50%;
-        animation: redDotRain 1s linear infinite;
+        animation: redDotRain 1.5s linear infinite;
       }
 
       @keyframes redDotRain {
@@ -55,7 +50,7 @@
         }
       }
 
-      /* Main Content Section */
+      /* Main Content */
       #main {
         text-align: center;
         z-index: 10;
@@ -63,8 +58,7 @@
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        opacity: 0;
-        animation: fadeInContent 3s ease-in-out forwards;
+        animation: fadeInContent 2s ease-out forwards;
       }
 
       @keyframes fadeInContent {
@@ -76,20 +70,6 @@
         }
       }
 
-      /* Floating Text Animation */
-      .floating {
-        animation: floatUpDown 3s ease-in-out infinite;
-      }
-
-      @keyframes floatUpDown {
-        0%, 100% {
-          transform: translateY(-5px);
-        }
-        50% {
-          transform: translateY(5px);
-        }
-      }
-
       h1 {
         font-size: 2.5rem;
         color: #f0f0f0;
@@ -98,7 +78,7 @@
         letter-spacing: 0.1em;
         opacity: 0;
         transform: translateX(100%);
-        animation: slideInRight 1.5s ease-out forwards 0.5s;
+        animation: slideInRight 1s ease-out forwards;
       }
 
       @keyframes slideInRight {
@@ -116,10 +96,9 @@
         font-size: 1rem;
         font-weight: 300;
         margin: 0.8rem 0;
-        letter-spacing: 0.05em;
         opacity: 0;
         transform: translateX(-100%);
-        animation: slideInLeft 1.5s ease-out forwards 1s;
+        animation: slideInLeft 1s ease-out forwards 0.5s;
       }
 
       @keyframes slideInLeft {
@@ -134,17 +113,15 @@
       }
 
       .buttons-container {
+        margin-top: 20px;
         display: flex;
         flex-direction: column;
         gap: 15px;
-        margin-top: 20px;
       }
 
       .button {
         width: 200px;
         height: 50px;
-        margin: 10px auto;
-        padding: 10px 20px;
         border: none;
         outline: none;
         cursor: pointer;
@@ -156,19 +133,12 @@
         border-radius: 10px;
         box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.8), inset -2px -2px 5px rgba(255, 255, 255, 0.1);
         transition: all 0.3s ease-in-out;
-        position: relative;
-        overflow: hidden;
         opacity: 0;
-        animation: fadeInButton 1s ease-in-out forwards;
+        transform: translateY(20px);
+        animation: slideUpButton 0.5s ease-in-out forwards;
       }
 
-      .button:active {
-        background: neon-green;
-        box-shadow: 0px 0px 20px rgba(0, 255, 0, 0.7);
-        transform: scale(0.95);
-      }
-
-      @keyframes fadeInButton {
+      @keyframes slideUpButton {
         0% {
           opacity: 0;
           transform: translateY(20px);
@@ -180,50 +150,55 @@
       }
 
       .button:nth-child(1) {
-        animation-delay: 1.5s;
+        animation-delay: 1.2s;
       }
 
       .button:nth-child(2) {
-        animation-delay: 1.8s;
+        animation-delay: 1.5s;
       }
 
       .button:nth-child(3) {
-        animation-delay: 2.1s;
+        animation-delay: 1.8s;
       }
 
       .button:nth-child(4) {
-        animation-delay: 2.4s;
+        animation-delay: 2.1s;
       }
 
       .button:nth-child(5) {
-        animation-delay: 2.7s;
+        animation-delay: 2.4s;
       }
 
-      footer {
-        position: absolute;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        text-align: center;
-        font-size: 0.9rem;
-        color: #888;
-        z-index: 10;
-        animation: fadeInFooter 2.5s ease-in-out forwards 3s;
+      .button:active {
+        transform: scale(0.95);
+        box-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
+        background: rgba(0, 255, 0, 0.2);
+      }
+
+      /* Floating Text */
+      .floating {
+        animation: floatUpDown 3s ease-in-out infinite;
+      }
+
+      @keyframes floatUpDown {
+        0%, 100% {
+          transform: translateY(-5px);
+        }
+        50% {
+          transform: translateY(5px);
+        }
       }
     </style>
   </head>
   <body>
     <!-- Red Dots -->
-    <div class="red-dot"></div>
-    <div class="red-dot"></div>
-    <div class="red-dot"></div>
     <script>
       for (let i = 0; i < 150; i++) {
         const dot = document.createElement('div');
         dot.classList.add('red-dot');
         dot.style.left = Math.random() * 100 + 'vw';
         dot.style.animationDelay = Math.random() * 2 + 's';
-        dot.style.animationDuration = Math.random() * 1 + 0.5 + 's';
+        dot.style.animationDuration = Math.random() * 1 + 1 + 's';
         document.body.appendChild(dot);
       }
     </script>
@@ -233,16 +208,12 @@
       <h1 class="floating">𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘</h1>
       <h3 class="floating">Welcome to ES TEAMS TECH</h3>
       <div class="buttons-container">
-        <button class="button" onclick="location.href='/whatsapp'">WhatsApp Channel</button>
-        <button class="button" onclick="location.href='/telegram'">Telegram Channel</button>
-        <button class="button" onclick="location.href='/bots'">BOTS</button>
-        <button class="button" onclick="location.href='/premium'">PREMIUM APPS</button>
+        <button class="button" onclick="location.href='#'">WhatsApp Channel</button>
+        <button class="button" onclick="location.href='#'">Telegram Channel</button>
+        <button class="button" onclick="location.href='#'">BOTS</button>
+        <button class="button" onclick="location.href='#'">PREMIUM APPS</button>
         <button class="button" onclick="closeBrowser()">CLOSE</button>
       </div>
     </div>
-
-    <footer class="floating">
-      <p>𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗧𝗘𝗖𝗛®</p>
-    </footer>
   </body>
-      </html>
+</html>

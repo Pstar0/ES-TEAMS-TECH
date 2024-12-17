@@ -9,28 +9,29 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom right, #222, #444);
+      background: url('https://i.ibb.co/qCTXK9p/ES-TEAMS-V1.jpg') no-repeat center center fixed;
+      background-size: cover;
       color: #fff;
-      overflow-x: hidden;
+      overflow: hidden;
     }
 
     /* Sidebar */
     #sidebar {
       position: fixed;
       top: 0;
-      right: -250px; /* Hidden by default */
+      right: -250px;
       width: 250px;
       height: 100%;
-      background: #222;
+      background: rgba(0, 0, 0, 0.9);
       color: #fff;
-      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.7);
+      transition: right 0.4s ease-in-out;
       z-index: 1000;
-      transition: right 0.4s ease-in-out; /* Smooth transition */
       padding: 20px;
     }
 
     #sidebar.active {
-      right: -250px;
+      right: 0;
     }
 
     #sidebar ul {
@@ -42,10 +43,12 @@
       margin: 20px 0;
       font-size: 18px;
       cursor: pointer;
+      transition: transform 0.3s;
     }
 
     #sidebar ul li:hover {
       color: #00ff00;
+      transform: scale(1.1);
     }
 
     /* Toggle Button */
@@ -62,49 +65,67 @@
       height: 5px;
       background: #fff;
       margin: 5px 0;
+      transition: transform 0.3s;
+    }
+
+    /* Rain Drops */
+    @keyframes rain {
+      0% { transform: translateY(-10px); opacity: 0; }
+      100% { transform: translateY(100vh); opacity: 1; }
+    }
+
+    .red-dot {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background: red;
+      border-radius: 50%;
+      animation: rain 2s linear infinite;
     }
 
     /* Content */
     .content {
       text-align: center;
-      margin: 50px 20px;
+      margin-top: 50px;
     }
 
-    /* Input Field */
+    h1 {
+      font-size: 2.5rem;
+      text-shadow: 2px 2px 4px black;
+    }
+
+    /* Input Fields */
     .input-container {
       position: relative;
-      display: inline-block;
-      margin: 15px auto;
+      margin: 20px auto;
     }
 
-    .input-container input {
+    input, select {
       width: 250px;
-      padding: 15px;
-      font-size: 20px;
+      padding: 12px;
+      font-size: 18px;
       text-align: center;
-      border-radius: 10px;
       border: none;
-      box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
-      background: #333;
+      border-radius: 10px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.6);
+      background: rgba(50, 50, 50, 0.9);
       color: #fff;
     }
 
-    .input-container input::placeholder {
+    input::placeholder {
       color: #ccc;
       font-weight: bold;
-      font-size: 18px;
-      text-shadow: 1px 1px 2px #000;
+      text-shadow: 1px 1px 2px black;
     }
 
     /* Eye Icon */
     .eye-icon {
       position: absolute;
+      right: 15px;
       top: 50%;
-      right: 10px;
       transform: translateY(-50%);
       cursor: pointer;
-      color: #fff;
-      font-size: 20px;
+      color: white;
     }
 
     /* Button */
@@ -115,29 +136,19 @@
       padding: 10px 20px;
       border: none;
       border-radius: 10px;
-      box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
       cursor: pointer;
+      transition: background 0.3s;
     }
 
     button:hover {
       background: #00cc00;
     }
 
-    /* Locked Message */
-    .locked {
-      color: red;
-      display: none;
-    }
-
-    /* Vibration Effect */
-    @keyframes vibrate {
-      0% { transform: translateX(-2px); }
-      50% { transform: translateX(2px); }
-      100% { transform: translateX(-2px); }
-    }
-
-    .vibrate {
-      animation: vibrate 0.2s ease-in-out 3;
+    /* Confirmation */
+    #confirmation {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: lime;
     }
   </style>
 </head>
@@ -145,9 +156,9 @@
   <!-- Sidebar -->
   <div id="sidebar">
     <ul>
-      <li onclick="redirectToHome()">Home</li>
-      <li onclick="redirectToPremium()">Premium Apps</li>
-      <li onclick="redirectToBot()">Bot</li>
+      <li onclick="window.location.href='/index.html'">Home</li>
+      <li onclick="window.location.href='/premium.html'">Premium Apps</li>
+      <li onclick="window.location.href='/bot.html'">Bot</li>
     </ul>
   </div>
 
@@ -161,97 +172,74 @@
   <!-- Content -->
   <div class="content">
     <h1>ES TEAMS WHATSAPP BAN</h1>
-    <p>Enter the PIN to access this tool:</p>
 
-    <!-- Password Input -->
+    <!-- PIN Input -->
     <div class="input-container">
-      <input type="tel" id="password" placeholder="Enter 6-digit PIN" maxlength="6">
-      <span class="eye-icon" onclick="togglePassword()">👁️</span>
+      <input type="password" id="pin" placeholder="Enter 6-digit PIN" maxlength="6">
+      <span class="eye-icon" onclick="togglePin()">👁️</span>
     </div>
-    <button onclick="checkPassword()">Enter</button>
-    <p id="locked-message" class="locked">Too many failed attempts. Try again in 30 seconds.</p>
+    <button onclick="checkPin()">Enter</button>
 
-    <!-- WhatsApp Ban Form -->
-    <div id="ban-tool" style="display: none;">
-      <h2>Enter Victim's WhatsApp Number</h2>
-      <input type="text" id="phone-number" placeholder="Enter Number">
-      <button onclick="sendBanRequest()">BAN</button>
-      <p id="ban-status" style="color: green; display: none;">Request sent. Wait for 24-48 hours.</p>
+    <!-- WhatsApp Number Input -->
+    <div id="whatsapp-section" style="display: none;">
+      <select id="country-code">
+        <option value="+234">Nigeria (+234)</option>
+        <option value="+1">USA (+1)</option>
+        <option value="+44">UK (+44)</option>
+        <option value="+91">India (+91)</option>
+        <!-- Add more country codes -->
+      </select>
+      <input type="tel" id="whatsapp-number" placeholder="WhatsApp Number">
+      <button onclick="banRequest()">BAN</button>
+      <p id="confirmation" style="display: none;">Request sent. Wait 24-48 hours.</p>
     </div>
   </div>
 
+  <!-- Rain Drops -->
   <script>
-    const sidebar = document.getElementById("sidebar");
-    const menuToggle = document.getElementById("menu-toggle");
-    const passwordInput = document.getElementById("password");
-    const eyeIcon = document.querySelector(".eye-icon");
-    const lockedMessage = document.getElementById("locked-message");
-    const banTool = document.getElementById("ban-tool");
-
-    let attempts = 0;
-
     // Sidebar Toggle
-    menuToggle.addEventListener("click", () => {
-      sidebar.classList.toggle("active");
-      if (sidebar.classList.contains("active")) {
-        sidebar.style.right = "0";
-      } else {
-        sidebar.style.right = "-250px";
-      }
+    document.getElementById('menu-toggle').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.toggle('active');
     });
 
-    // Password Eye Toggle
-    let passwordVisible = false;
-    function togglePassword() {
-      if (passwordVisible) {
-        passwordInput.type = "password";
-        eyeIcon.textContent = "👁️";
+    // Toggle Eye Visibility
+    let pinVisible = false;
+    function togglePin() {
+      const pin = document.getElementById('pin');
+      const eye = document.querySelector('.eye-icon');
+      if (pinVisible) {
+        pin.type = 'password';
+        eye.textContent = '👁️';
       } else {
-        passwordInput.type = "text";
-        eyeIcon.textContent = "❌";
+        pin.type = 'text';
+        eye.textContent = '👁️‍🗨️';
       }
-      passwordVisible = !passwordVisible;
+      pinVisible = !pinVisible;
     }
 
-    // Password Check with Lockout and Vibration
-    function checkPassword() {
-      const pin = "140000";
-      if (!passwordInput.value) {
-        alert("Please enter a PIN!");
-        return;
-      }
-
-      if (passwordInput.value === pin) {
-        banTool.style.display = "block";
-        lockedMessage.style.display = "none";
+    // Check PIN
+    function checkPin() {
+      const pin = document.getElementById('pin').value;
+      if (pin === '140000') {
+        document.getElementById('whatsapp-section').style.display = 'block';
       } else {
-        attempts++;
-        passwordInput.classList.add("vibrate");
-        setTimeout(() => passwordInput.classList.remove("vibrate"), 600);
-        alert("Wrong PIN!");
-        if (attempts >= 3) {
-          passwordInput.disabled = true;
-          lockedMessage.style.display = "block";
-          setTimeout(() => {
-            passwordInput.disabled = false;
-            lockedMessage.style.display = "none";
-            attempts = 0;
-          }, 30000);
-        }
+        alert('Incorrect PIN, please try again.');
       }
     }
 
-    function redirectToHome() {
-      alert("Redirecting to Home");
+    // Ban Request
+    function banRequest() {
+      document.getElementById('confirmation').style.display = 'block';
     }
 
-    function redirectToPremium() {
-      alert("Redirecting to Premium Apps");
-    }
-
-    function redirectToBot() {
-      alert("Redirecting to Bot");
-    }
+    // Rain Effect
+    setInterval(() => {
+      const dot = document.createElement('div');
+      dot.className = 'red-dot';
+      dot.style.left = `${Math.random() * 100}vw`;
+      document.body.appendChild(dot);
+      dot.addEventListener('animationend', () => dot.remove());
+    }, 200);
   </script>
 </body>
-      </html>
+  </html>

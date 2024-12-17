@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ES Teams WhatsApp Ban</title>
+  <title>ES TEAMS BAN PAGE</title>
   <style>
-    /* General Styling */
+    /* General Styles */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: url('https://i.ibb.co/qCTXK9p/ES-TEAMS-V1.jpg') no-repeat center center fixed;
+      background: url('https://files.catbox.moe/n7a0v4.jpg') no-repeat center center fixed;
       background-size: cover;
       color: #fff;
       overflow: hidden;
@@ -19,13 +19,12 @@
     #sidebar {
       position: fixed;
       top: 0;
-      right: -250px;
-      width: 250px;
+      right: -300px;
+      width: 300px;
       height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      color: #fff;
+      background: rgba(0, 0, 0, 0.95);
       box-shadow: -2px 0 5px rgba(0, 0, 0, 0.7);
-      transition: right 0.4s ease-in-out;
+      transition: right 0.4s ease;
       z-index: 1000;
       padding: 20px;
     }
@@ -37,13 +36,14 @@
     #sidebar ul {
       list-style: none;
       padding: 0;
+      text-align: left;
     }
 
     #sidebar ul li {
       margin: 20px 0;
-      font-size: 18px;
       cursor: pointer;
-      transition: transform 0.3s;
+      font-size: 18px;
+      transition: all 0.3s ease;
     }
 
     #sidebar ul li:hover {
@@ -65,10 +65,85 @@
       height: 5px;
       background: #fff;
       margin: 5px 0;
-      transition: transform 0.3s;
+      transition: all 0.3s ease;
     }
 
-    /* Rain Drops */
+    /* Content */
+    .content {
+      text-align: center;
+      margin-top: 100px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      text-shadow: 2px 2px 5px black;
+    }
+
+    /* Input Field */
+    .input-container {
+      position: relative;
+      margin: 20px auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    input {
+      width: 280px;
+      padding: 12px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.6);
+      background: rgba(30, 30, 30, 0.8);
+      color: #fff;
+      text-align: center;
+    }
+
+    input::placeholder {
+      color: #ddd;
+    }
+
+    /* Eye Toggle */
+    .eye-icon {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 20px;
+      color: #fff;
+    }
+
+    /* Button */
+    button {
+      background: #00ff00;
+      color: #222;
+      font-size: 18px;
+      padding: 10px 20px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #00cc00;
+    }
+
+    /* Vibration Effect */
+    .shake {
+      animation: shake 0.3s;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      50% { transform: translateX(10px); }
+      75% { transform: translateX(-10px); }
+    }
+
+    /* Red Rain */
     @keyframes rain {
       0% { transform: translateY(-10px); opacity: 0; }
       100% { transform: translateY(100vh); opacity: 1; }
@@ -80,75 +155,7 @@
       height: 5px;
       background: red;
       border-radius: 50%;
-      animation: rain 2s linear infinite;
-    }
-
-    /* Content */
-    .content {
-      text-align: center;
-      margin-top: 50px;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      text-shadow: 2px 2px 4px black;
-    }
-
-    /* Input Fields */
-    .input-container {
-      position: relative;
-      margin: 20px auto;
-    }
-
-    input, select {
-      width: 250px;
-      padding: 12px;
-      font-size: 18px;
-      text-align: center;
-      border: none;
-      border-radius: 10px;
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.6);
-      background: rgba(50, 50, 50, 0.9);
-      color: #fff;
-    }
-
-    input::placeholder {
-      color: #ccc;
-      font-weight: bold;
-      text-shadow: 1px 1px 2px black;
-    }
-
-    /* Eye Icon */
-    .eye-icon {
-      position: absolute;
-      right: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      cursor: pointer;
-      color: white;
-    }
-
-    /* Button */
-    button {
-      background: #00ff00;
-      color: #222;
-      font-size: 18px;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    button:hover {
-      background: #00cc00;
-    }
-
-    /* Confirmation */
-    #confirmation {
-      margin-top: 20px;
-      font-size: 1.2rem;
-      color: lime;
+      animation: rain 3s linear infinite;
     }
   </style>
 </head>
@@ -156,14 +163,14 @@
   <!-- Sidebar -->
   <div id="sidebar">
     <ul>
-      <li onclick="window.location.href='/index.html'">Home</li>
-      <li onclick="window.location.href='/premium.html'">Premium Apps</li>
-      <li onclick="window.location.href='/bot.html'">Bot</li>
+      <li onclick="redirectTo('/index.html')">Home</li>
+      <li onclick="redirectTo('/premium.html')">Premium Apps</li>
+      <li onclick="redirectTo('/bot.html')">Bot</li>
     </ul>
   </div>
 
-  <!-- Menu Icon -->
-  <div id="menu-toggle" class="menu-icon">
+  <!-- Menu Toggle -->
+  <div class="menu-icon" onclick="toggleMenu()">
     <div></div>
     <div></div>
     <div></div>
@@ -173,66 +180,59 @@
   <div class="content">
     <h1>ES TEAMS WHATSAPP BAN</h1>
 
-    <!-- PIN Input -->
+    <!-- Input PIN -->
     <div class="input-container">
-      <input type="password" id="pin" placeholder="Enter 6-digit PIN" maxlength="6">
-      <span class="eye-icon" onclick="togglePin()">👁️</span>
+      <input type="password" id="pin" placeholder="Enter 6-digit PIN">
+      <span class="eye-icon" onclick="toggleEye()">👁️</span>
     </div>
     <button onclick="checkPin()">Enter</button>
 
-    <!-- WhatsApp Number Input -->
-    <div id="whatsapp-section" style="display: none;">
-      <select id="country-code">
-        <option value="+234">Nigeria (+234)</option>
-        <option value="+1">USA (+1)</option>
-        <option value="+44">UK (+44)</option>
-        <option value="+91">India (+91)</option>
-        <!-- Add more country codes -->
-      </select>
-      <input type="tel" id="whatsapp-number" placeholder="WhatsApp Number">
-      <button onclick="banRequest()">BAN</button>
-      <p id="confirmation" style="display: none;">Request sent. Wait 24-48 hours.</p>
-    </div>
+    <p id="error" style="color: red; display: none;">Incorrect PIN!</p>
   </div>
 
-  <!-- Rain Drops -->
+  <!-- Red Rain Effect -->
   <script>
     // Sidebar Toggle
-    document.getElementById('menu-toggle').addEventListener('click', () => {
+    function toggleMenu() {
       document.getElementById('sidebar').classList.toggle('active');
-    });
+    }
 
-    // Toggle Eye Visibility
-    let pinVisible = false;
-    function togglePin() {
-      const pin = document.getElementById('pin');
+    // Redirect Function
+    function redirectTo(page) {
+      window.location.href = page;
+    }
+
+    // Eye Icon Toggle
+    let showPin = false;
+    function toggleEye() {
+      const pinField = document.getElementById('pin');
       const eye = document.querySelector('.eye-icon');
-      if (pinVisible) {
-        pin.type = 'password';
+      if (showPin) {
+        pinField.type = 'password';
         eye.textContent = '👁️';
       } else {
-        pin.type = 'text';
+        pinField.type = 'text';
         eye.textContent = '👁️‍🗨️';
       }
-      pinVisible = !pinVisible;
+      showPin = !showPin;
     }
 
     // Check PIN
     function checkPin() {
       const pin = document.getElementById('pin').value;
-      if (pin === '140000') {
-        document.getElementById('whatsapp-section').style.display = 'block';
+      const error = document.getElementById('error');
+      if (pin !== '123456') {
+        error.style.display = 'block';
+        document.getElementById('pin').classList.add('shake');
+        setTimeout(() => {
+          document.getElementById('pin').classList.remove('shake');
+        }, 300);
       } else {
-        alert('Incorrect PIN, please try again.');
+        alert('Access Granted');
       }
     }
 
-    // Ban Request
-    function banRequest() {
-      document.getElementById('confirmation').style.display = 'block';
-    }
-
-    // Rain Effect
+    // Red Rain Effect
     setInterval(() => {
       const dot = document.createElement('div');
       dot.className = 'red-dot';

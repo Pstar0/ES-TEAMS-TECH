@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗣𝗥𝗘𝗠𝗜𝗨𝗠</title>
+    <meta property="og:image" content="https://files.catbox.moe/n7a0v4.jpg">
+    <meta property="og:title" content="𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗣𝗥𝗘𝗠𝗜𝗨𝗠">
+    <style>
+      /* Body styles */
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: url('https://files.catbox.moe/n7a0v4.jpg') no-repeat center center;
+        background-size: cover;
+        height: 100vh;
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+        color: #fff;
+        overflow: hidden;
+        padding: 20px;
+        position: relative;
+      }
+
+      /* Animated heading styles */
+      h1 {
+        font-size: 3rem;
+        text-align: center;
+        margin-bottom: 30px;
+        color: #fff;
+        text-transform: uppercase;
+        animation: glow 2s infinite alternate, zoom 2s infinite alternate;
+      }
+
+      @keyframes glow {
+        0% {
+          text-shadow: 0 0 10px red, 0 0 20px orange, 0 0 30px yellow;
+        }
+        100% {
+          text-shadow: 0 0 20px blue, 0 0 40px green, 0 0 60px purple;
+        }
+      }
+
+      @keyframes zoom {
+        0%, 100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+      }
+
+      /* Button container */
+      .buttons-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      /* Button styles */
+      .button {
+        width: 200px;
+        padding: 15px 20px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #fff;
+        background: linear-gradient(145deg, #282828, #383838);
+        border-radius: 10px;
+        box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.8), inset -2px -2px 5px rgba(255, 255, 255, 0.1);
+        transition: all 0.2s ease-in-out;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+      }
+
+      .button:hover {
+        background: linear-gradient(145deg, #ff4500, #ff6347);
+        box-shadow: 0 0 20px #ff4500, 0 0 40px #ff6347;
+      }
+
+      /* Footer styles */
+      footer {
+        text-align: center;
+        font-size: 0.9rem;
+        color: #888;
+        margin-top: 20px;
+      }
+
+      /* Red dots animation */
+      .dot {
+        position: absolute;
+        background-color: red;
+        border-radius: 50%;
+        width: 10px;
+        height: 10px;
+        animation: drop 1.5s infinite linear;
+      }
+
+      @keyframes drop {
+        0% {
+          top: -10px;
+          left: calc(100% * var(--random-x));
+        }
+        100% {
+          top: 100vh;
+        }
+      }
+
+      /* Generate multiple red dots */
+      .dot:nth-child(1) { animation-duration: 2s; --random-x: 0.1; }
+      .dot:nth-child(2) { animation-duration: 2.5s; --random-x: 0.25; }
+      .dot:nth-child(3) { animation-duration: 3s; --random-x: 0.4; }
+      .dot:nth-child(4) { animation-duration: 3.5s; --random-x: 0.5; }
+      .dot:nth-child(5) { animation-duration: 4s; --random-x: 0.7; }
+      .dot:nth-child(6) { animation-duration: 4.5s; --random-x: 0.8; }
+      .dot:nth-child(7) { animation-duration: 5s; --random-x: 0.9; }
+
+    </style>
+  </head>
+  <body>
+    <!-- Heading -->
+    <h1>𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗣𝗥𝗘𝗠𝗜𝗨𝗠</h1>
+
+    <!-- Buttons for premium apps -->
+    <div class="buttons-container">
+      <button class="button" onclick="location.href='https://t.me/esteam24/1220?single'">GTA 5 SERIES</button>
+      <button class="button" onclick="location.href='https://t.me/esteam24/1216'">VIRTUAL NUMBER</button>
+      <button class="button" onclick="location.href='https://t.me/esteam24/1215'">MOVIE APP</button>
+      <button class="button" onclick="location.href='https://t.me/esteam24/1186'">FAKE TRANSFER</button>
+      <button class="button" onclick="location.href='https://t.me/esteam24/1146'">NETFLIX</button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗧𝗘𝗖𝗛®</p>
+    </footer>
+
+    <!-- Red dots falling -->
+    <div class="dot" style="top: 0; left: 30%;"></div>
+    <div class="dot" style="top: 0; left: 50%;"></div>
+    <div class="dot" style="top: 0; left: 70%;"></div>
+    <div class="dot" style="top: 0; left: 10%;"></div>
+    <div class="dot" style="top: 0; left: 90%;"></div>
+    <div class="dot" style="top: 0; left: 20%;"></div>
+    <div class="dot" style="top: 0; left: 80%;"></div>
+  </body>
+</html>

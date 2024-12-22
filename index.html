@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘</title>
+    <meta property="og:image" content="https://files.catbox.moe/n7a0v4.jpg">
+    <meta property="og:title" content="𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘">
+    <style>
+      /* Body styles */
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: url('https://files.catbox.moe/n7a0v4.jpg') no-repeat center center;
+        background-size: cover;
+        height: 100vh;
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+        color: #fff;
+        overflow: hidden;
+        opacity: 0;
+        animation: fadeInBackground 2s ease-in-out forwards;
+      }
+
+      /* Fade in for the background */
+      @keyframes fadeInBackground {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      /* Main content styles */
+      #main {
+        text-align: center;
+        z-index: 10;
+        background-color: rgba(0, 0, 0, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        animation: fadeInContent 3s ease-in-out forwards;
+      }
+
+      @keyframes fadeInContent {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      /* Title animation from right */
+      h1 {
+        font-size: 2.5rem;
+        color: #f0f0f0;
+        text-transform: uppercase;
+        margin: 0;
+        letter-spacing: 0.1em;
+        opacity: 0;
+        transform: translateX(100%);
+        animation: slideInRight 1.5s ease-out forwards 0.5s;
+      }
+
+      @keyframes slideInRight {
+        0% {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        100% {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      /* Subtitle animation from left */
+      h3 {
+        font-size: 1rem;
+        font-weight: 300;
+        margin: 0.8rem 0;
+        letter-spacing: 0.05em;
+        opacity: 0;
+        transform: translateX(-100%);
+        animation: slideInLeft 1.5s ease-out forwards 1s;
+      }
+
+      @keyframes slideInLeft {
+        0% {
+          transform: translateX(-100%);
+          opacity: 0;
+        }
+        100% {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      /* Button styles */
+      .buttons-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .button {
+        width: 200px;
+        height: 50px;
+        margin: 10px auto;
+        padding: 10px 20px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #fff;
+        background: linear-gradient(145deg, #282828, #383838);
+        border-radius: 10px;
+        box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.8), inset -2px -2px 5px rgba(255, 255, 255, 0.1);
+        transition: all 0.2s ease-in-out;
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        animation: fadeInButton 1s ease-in-out forwards;
+      }
+
+      @keyframes fadeInButton {
+        0% {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .button:active {
+        transform: scale(0.9);
+        background: linear-gradient(145deg, #ff0000, #8b0000);
+        box-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
+      }
+
+      .button:nth-child(1) {
+        animation-delay: 1.5s;
+      }
+
+      .button:nth-child(2) {
+        animation-delay: 1.8s;
+      }
+
+      .button:nth-child(3) {
+        animation-delay: 2.1s;
+      }
+
+      .button:nth-child(4) {
+        animation-delay: 2.4s;
+      }
+
+      .button:nth-child(5) {
+        animation-delay: 2.7s;
+      }
+
+      .button:nth-child(6) {
+        animation-delay: 3s;
+      }
+
+      /* Red dot rain styles */
+      .red-dot {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        background-color: red;
+        border-radius: 50%;
+        top: -10px;
+        animation: fall 1.5s linear infinite;
+        z-index: 1;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(-10px);
+        }
+        100% {
+          transform: translateY(110vh);
+        }
+      }
+
+      /* Footer styles */
+      footer {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        font-size: 0.9rem;
+        color: #888;
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Main container -->
+    <div id="main">
+      <h1>𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘</h1>
+      <h3>Welcome to ES TEAMS TECH</h3>
+      <div class="buttons-container">
+        <button class="button" onclick="location.href='/whatsapp'">WhatsApp Channel</button>
+        <button class="button" onclick="location.href='/telegram'">Telegram Channel</button>
+        <button class="button" onclick="location.href='/bots'">BOTS</button>
+        <button class="button" onclick="location.href='/premium'">PREMIUM APPS</button>
+        <button class="button" onclick="location.href='/whatsapp-ban'">WHATSAPP BAN</button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗧𝗘𝗖𝗛®</p>
+    </footer>
+
+    <!-- Red dot rain script -->
+    <script>
+      for (let i = 0; i < 100; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('red-dot');
+        dot.style.left = Math.random() * 100 + 'vw';
+        dot.style.animationDelay = Math.random() * 1.5 + 's';
+        dot.style.opacity = Math.random();
+        document.body.appendChild(dot);
+      }
+
+      // Close browser function
+      function closeBrowser() {
+        try {
+          window.open('', '_self');
+          window.close();
+        } catch (e) {
+          alert('Cannot close this tab automatically. Please close it manually.');
+        }
+      }
+    </script>
+
+    <!-- Add the audio script -->
+    <script src="audio.js"></script>
+  </body>
+</html>

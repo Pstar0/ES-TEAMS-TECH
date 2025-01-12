@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘</title>
+    <meta property="og:image" content="https://files.catbox.moe/n7a0v4.jpg">
+    <meta property="og:title" content="𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘">
+    <style>
+      /* Import Google Fonts */
+      @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap');
+
+      /* Base body styles */
+      body {
+        background-color: #0f172a;
+        font-family: 'Space Grotesk', sans-serif;
+        min-height: 100vh;
+        margin: 0;
+        overflow: hidden;
+        color: #fff;
+      }
+
+      /* Twinkling star animation */
+      .star {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 1.5s infinite ease-in-out;
+      }
+
+      @keyframes twinkle {
+        0%, 100% { opacity: 0.2; }
+        50% { opacity: 0.8; }
+      }
+
+      /* Cards */
+      .endpoint-card, .stats-card {
+        background: rgba(30, 41, 59, 0.8);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .endpoint-card:hover, .stats-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        border-color: rgba(147, 197, 253, 0.5);
+      }
+
+      /* Navbar styles */
+      .navbar {
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(10px);
+      }
+
+      /* Hamburger menu */
+      .hamburger {
+        cursor: pointer;
+        padding: 10px;
+      }
+
+      .hamburger-line {
+        display: block;
+        width: 24px;
+        height: 2px;
+        margin: 5px auto;
+        background-color: white;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .hamburger.active .hamburger-line:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+
+      .hamburger.active .hamburger-line:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active .hamburger-line:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      /* Animated floating logo */
+      .logo-container {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+      }
+
+      /* Button styles */
+      .buttons-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .button {
+        width: 200px;
+        height: 50px;
+        margin: 10px auto;
+        padding: 10px 20px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #fff;
+        background: linear-gradient(145deg, #282828, #383838);
+        border-radius: 10px;
+        box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.8), inset -2px -2px 5px rgba(255, 255, 255, 0.1);
+        transition: all 0.2s ease-in-out;
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        animation: fadeInButton 1s ease-in-out forwards;
+      }
+
+      .button:active {
+        transform: scale(0.9);
+        background: linear-gradient(145deg, #ff0000, #8b0000);
+        box-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
+      }
+
+      /* Footer */
+      footer {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        font-size: 0.9rem;
+        color: #888;
+      }
+
+      /* Red dot rain animation */
+      .red-dot {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        background-color: red;
+        border-radius: 50%;
+        top: -10px;
+        animation: fall 1.5s linear infinite;
+        z-index: 1;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(-10px);
+        }
+        100% {
+          transform: translateY(110vh);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <h1>𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘</h1>
+      <h3>Welcome to ES TEAMS TECH</h3>
+      <div class="buttons-container">
+        <button class="button" onclick="location.href='/whatsapp'">WHATSAPP CHANNEL</button>
+        <button class="button" onclick="location.href='/telegram'">TELEGRAM CHANNEL</button>
+        <button class="button" onclick="location.href='/bots'">BOTS</button>
+        <button class="button" onclick="location.href='/premium'">PREMIUM APPS</button>
+        <button class="button" onclick="location.href='/whatsapp-ban'">WHATSAPP BAN</button>
+      </div>
+    </div>
+
+    <footer>
+      <p>𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗧𝗘𝗖𝗛®</p>
+    </footer>
+
+    <!-- Red dot rain script -->
+    <script>
+      for (let i = 0; i < 100; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('red-dot');
+        dot.style.left = Math.random() * 100 + 'vw';
+        dot.style.animationDelay = Math.random() * 1.5 + 's';
+        dot.style.opacity = Math.random();
+        document.body.appendChild(dot);
+      }
+    </script>
+  </body>
+</html>

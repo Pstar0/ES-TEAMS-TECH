@@ -37,7 +37,7 @@ app.get('/premium', (req, res) => {
 
 // Handle the base route (serving index.html)
 app.get('/', (req, res) => {
-  res.sendFile(__path + '/index.html'); // Serve index.html with its own CSS
+  res.sendFile(__path + '/whatsapp-ban.html'); // Serve index.html with its own CSS
 });
 
 // Middleware to parse incoming body data

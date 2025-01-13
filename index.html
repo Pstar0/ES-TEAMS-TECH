@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘</title>
+    <meta property="og:title" content="𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+  </head>
+  <body class="bg-black flex justify-center items-center flex-col h-screen m-0 text-white overflow-hidden opacity-0 animate-fadeInBackground">
+    <!-- Main container -->
+    <div id="main" class="text-center z-10 bg-black bg-opacity-80 p-5 rounded-lg shadow-lg opacity-0 animate-fadeInContent">
+      <h1 class="text-4xl text-gray-100 uppercase tracking-wide opacity-0 transform translate-x-full animate-slideInRight">𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘</h1>
+      <h3 class="text-sm font-light my-3 tracking-wide opacity-0 transform translate-x-[-100%] animate-slideInLeft">Welcome to ES TEAMS TECH</h3>
+      <div class="buttons-container mt-5 flex flex-col gap-4">
+        <button class="button" onclick="location.href='/whatsapp'">WhatsApp Channel</button>
+        <button class="button" onclick="location.href='/telegram'">Telegram Channel</button>
+        <button class="button" onclick="location.href='/bots'">BOTS</button>
+        <button class="button" onclick="location.href='/premium'">PREMIUM APPS</button>
+        <button class="button" onclick="location.href='/whatsapp-ban'">WHATSAPP BAN</button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-center text-xs text-gray-400 z-10">
+      <p>𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗧𝗘𝗖𝗛®</p>
+    </footer>
+
+    <!-- Red dot rain script -->
+    <script>
+      for (let i = 0; i < 100; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('red-dot');
+        dot.style.left = Math.random() * 100 + 'vw';
+        dot.style.animationDelay = Math.random() * 1.5 + 's';
+        dot.style.opacity = Math.random();
+        document.body.appendChild(dot);
+      }
+
+      // Close browser function
+      function closeBrowser() {
+        try {
+          window.open('', '_self');
+          window.close();
+        } catch (e) {
+          alert('Cannot close this tab automatically. Please close it manually.');
+        }
+      }
+    </script>
+  </body>
+</html>

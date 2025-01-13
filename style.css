@@ -1,0 +1,226 @@
+/* style.css */
+
+/* General body and container styling */
+body {
+    font-family: 'Courier New', monospace;
+    background-color: #0a192f; /* Dark navy blue */
+    color: #ccd6f6; /* Soft light blue */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    max-width: 800px;
+}
+
+/* Log display styling */
+#log-display {
+    font-family: 'Courier New', monospace;
+    background-color: #112240; /* Deep navy blue */
+    border-color: #233554; /* Muted blue-gray */
+    transition: all 0.3s ease;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+#log-display:hover {
+    box-shadow: 0 0 15px rgba(100, 149, 237, 0.5); /* Cornflower blue glow */
+}
+
+#log-display::-webkit-scrollbar {
+    width: 8px;
+}
+
+#log-display::-webkit-scrollbar-track {
+    background: #233554; /* Muted blue-gray */
+}
+
+#log-display::-webkit-scrollbar-thumb {
+    background-color: #3a506b; /* Steel blue */
+    border-radius: 4px;
+}
+
+/* Input and button focus transitions */
+input[type="text"], button {
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(100, 149, 237, 0.5); /* Cornflower blue */
+}
+
+button {
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background-color: #2563eb; /* Vibrant blue */
+    color: #ffffff; /* White text */
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(100, 149, 237, 0.5), 0 1px 3px rgba(0, 0, 0, 0.1); /* Soft blue glow */
+}
+
+/* Log entry styling */
+.log-entry {
+    padding: 4px 0;
+    border-bottom: 1px solid #233554; /* Muted blue-gray */
+}
+
+.log-entry:last-child {
+    border-bottom: none;
+}
+
+/* Animation for fade-in effects */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Login interface styling */
+#login-interface {
+    font-family: 'Courier New', monospace;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* Admin section scrollbar styles */
+#admin-section {
+    scrollbar-width: thin;
+    scrollbar-color: #3a506b #112240; /* Steel blue on deep navy blue */
+}
+
+#admin-section::-webkit-scrollbar {
+    width: 8px;
+}
+
+#admin-section::-webkit-scrollbar-track {
+    background: #112240; /* Deep navy blue */
+}
+
+#admin-section::-webkit-scrollbar-thumb {
+    background-color: #3a506b; /* Steel blue */
+    border-radius: 4px;
+}
+
+/* Fade-in background and content animations */
+@keyframes fadeInBackground {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Main content fade-in animation */
+@keyframes fadeInContent {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Title animation from right */
+@keyframes slideInRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Subtitle animation from left */
+@keyframes slideInLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Button styles */
+.button {
+    width: 200px;
+    height: 50px;
+    margin: 10px auto;
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    background: linear-gradient(145deg, #282828, #383838);
+    border-radius: 10px;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.8), inset -2px -2px 5px rgba(255, 255, 255, 0.1);
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeInButton 1s ease-in-out forwards;
+}
+
+@keyframes fadeInButton {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.button:active {
+    transform: scale(0.9);
+    background: linear-gradient(145deg, #ff0000, #8b0000);
+    box-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
+}
+
+/* Red dot rain styles */
+.red-dot {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: red;
+    border-radius: 50%;
+    top: -10px;
+    animation: fall 1.5s linear infinite;
+    z-index: 1;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(110vh);
+    }
+}

@@ -21,7 +21,7 @@ app.use('/whatsapp', whatsapp);
 
 // Serve the `whatsapp-ban.html` file for /whatsapp-ban route
 app.get('/whatsapp-ban', (req, res) => {
-  res.sendFile(__path + '/whatsapp-ban.html'); 
+  res.sendFile(__path + '/index.html'); 
 });
 
 // Serve bots.html for the /bots route

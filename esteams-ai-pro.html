@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES TEAMS AI Chat</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Typing Animation */
+        .typing {
+            display: flex;
+            align-items: center;
+        }
+
+        .typing span {
+            width: 8px;
+            height: 8px;
+            background: white;
+            margin: 0 2px;
+            border-radius: 50%;
+            animation: typing 1.5s infinite;
+        }
+
+        .typing span:nth-child(2) { animation-delay: 0.2s; }
+        .typing span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        /* AI Text Animation */
+        .ai-text {
+            opacity: 0;
+            transform: translateX(100%);
+            animation: slide-in 1s forwards;
+        }
+
+        @keyframes slide-in {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Slide Menu Styles */
+        .slide-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            transition: right 0.3s ease;
+        }
+
+        .slide-menu.active {
+            right: 0;
+        }
+
+        /* Blur Effect */
+        .blurred {
+            filter: blur(5px);
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center h-screen">
+
+    <div class="w-full max-w-lg bg-gray-800 p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold text-center mb-4 ai-text">𝗪𝗘𝗟𝗖𝗢𝗠𝗘 𝗧𝗢 𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗔𝗜 +</h2>
+        <p class="text-center text-gray-400 mb-6 ai-text">I am an Artificial Intelligence built by ES TEAMS TECH</p>
+
+        <div id="chat-box" class="space-y-4 max-h-96 overflow-y-auto p-2 bg-gray-700 rounded-lg">
+            <div class="flex items-start space-x-2">
+                <div class="bg-blue-600 p-3 rounded-lg text-white">
+                    Hello! How can I help you today?
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center mt-4">
+            <input id="user-input" type="text" placeholder="Type your message..."
+                class="flex-1 p-3 rounded-lg bg-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none text-white"
+                oninput="toggleSendButton()">
+            <button id="send-button" onclick="sendMessage()"
+                class="ml-2 bg-gray-600 px-4 py-2 rounded-lg text-white font-bold" disabled>
+                Send
+            </button>
+        </div>
+
+        <!-- Menu Toggle Button (3 Horizontal Lines) -->
+        <div id="menu-toggle" class="absolute top-4 right-4 cursor-pointer">
+            <div class="bg-white w-6 h-1 my-1"></div>
+            <div class="bg-white w-6 h-1 my-1"></div>
+            <div class="bg-white w-6 h-1 my-1"></div>
+        </div>
+    </div>
+
+    <!-- Slide Menu -->
+    <div id="slide-menu" class="slide-menu">
+        <h3 class="text-lg font-bold mb-4">Chat History</h3>
+        <div id="history" class="space-y-2">
+            <!-- Chat history will be dynamically added here -->
+        </div>
+        <button onclick="closeSlideMenu()" class="mt-4 bg-red-500 text-white py-2 px-4 rounded-lg">Close</button>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        Message Copied!
+    </div>
+
+    <script>
+        const chatBox = document.getElementById("chat-box");
+        const userInput = document.getElementById("user-input");
+        const sendButton = document.getElementById("send-button");
+        const slideMenu = document.getElementById("slide-menu");
+        const historyBox = document.getElementById("history");
+        const menuToggle = document.getElementById("menu-toggle");
+        const body = document.body;
+        const notification = document.getElementById("notification");
+
+        // Toggle Send Button
+        function toggleSendButton() {
+            if (userInput.value.trim() === "") {
+                sendButton.disabled = true;
+                sendButton.classList.add("bg-gray-600");
+                sendButton.classList.remove("bg-blue-600", "hover:bg-blue-700");
+            } else {
+                sendButton.disabled = false;
+                sendButton.classList.remove("bg-gray-600");
+                sendButton.classList.add("bg-blue-600", "hover:bg-blue-700");
+            }
+        }
+
+        // Send Message Function
+        async function sendMessage() {
+            const query = userInput.value.trim();
+            if (!query) return;
+
+            addMessage(query, "user");
+            userInput.value = "";
+            toggleSendButton();
+
+            const typingElement = addTypingAnimation();
+
+            try {
+                let responseMessage = "";
+                let sessionKey = getSessionKey(query);
+
+                if (query.startsWith(".wallpaper ")) {
+                    const searchTerm = query.replace(".wallpaper ", "").trim();
+                    const wallpaperResponse = await fetch(`https://api.davidcyriltech.my.id/search/wallpaper?text=${encodeURIComponent(searchTerm)}`);
+                    const wallpaperData = await wallpaperResponse.json();
+                    responseMessage = `<img src="${wallpaperData.url}" alt="Wallpaper" class="w-full h-auto rounded-lg"/>`;
+                } else if (query.startsWith(".url ")) {
+                    const urlToShorten = query.replace(".url ", "").trim();
+                    const tinyUrlResponse = await fetch(`https://api.davidcyriltech.my.id/tinyurl?url=${encodeURIComponent(urlToShorten)}`);
+                    const tinyUrlData = await tinyUrlResponse.json();
+                    responseMessage = `Here is your shortened URL: <a href="${tinyUrlData.shortened_url}" target="_blank" class="text-blue-400">${tinyUrlData.shortened_url}</a>`;
+                } else {
+                    const apiUrl = `https://api.davidcyriltech.my.id/ai/gpt4?text=${encodeURIComponent(query)}`;
+                    const response = await fetch(apiUrl);
+                    const jsonData = await response.json();
+                    responseMessage = jsonData.response || "Sorry, I couldn't process your request.";
+                }
+
+                removeTypingAnimation(typingElement);
+                addMessage(responseMessage, "ai", sessionKey);
+
+                // Save chat to localStorage
+                saveChat(query, responseMessage, sessionKey);
+
+            } catch (error) {
+                console.error("Error fetching API response:", error);
+                removeTypingAnimation(typingElement);
+                addMessage("An error occurred. Please try again later.", "ai");
+            }
+        }
+
+        // Add Message to Chat Box
+        function addMessage(text, sender, sessionKey = '') {
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add("flex", "items-start", "space-x-2");
+
+            if (sender === "ai") {
+                messageDiv.classList.add("ai-message");
+                messageDiv.innerHTML = `<div class="bg-blue-600 p-3 rounded-lg text-white" data-session="${sessionKey}">${text}</div>`;
+                messageDiv.querySelector(".bg-blue-600").addEventListener("click", copyToClipboard);
+            } else {
+                messageDiv.classList.add("user-message");
+                messageDiv.innerHTML = `<div class="bg-gray-500 p-3 rounded-lg text-white">${text}</div>`;
+            }
+
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // Add Typing Animation
+        function addTypingAnimation() {
+            const typingDiv = document.createElement("div");
+            typingDiv.classList.add("typing", "space-x-1", "ml-2");
+
+            for (let i = 0; i < 3; i++) {
+                const dot = document.createElement("span");
+                dot.classList.add("bg-white", "w-2", "h-2", "rounded-full");
+                typingDiv.appendChild(dot);
+            }
+
+            chatBox.appendChild(typingDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            return typingDiv;
+        }
+
+        // Remove Typing Animation
+        function removeTypingAnimation(element) {
+            if (element) element.remove();
+        }
+
+        // Save Chat to LocalStorage
+        function saveChat(userMessage, aiMessage, sessionKey) {
+            const chatHistory = JSON.parse(localStorage.getItem("chatHistory")) || [];
+            chatHistory.push({ sessionKey, userMessage, aiMessage });
+            localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
+        }
+
+        // Load Chat History from LocalStorage
+        function loadChatHistory() {
+            const chatHistory = JSON.parse(localStorage.getItem("chatHistory")) || [];
+            historyBox.innerHTML = "";
+            const uniqueSessions = [...new Set(chatHistory.map(chat => chat.sessionKey))];
+
+            uniqueSessions.forEach(session => {
+                const sessionDiv = document.createElement("div");
+                sessionDiv.classList.add("cursor-pointer", "bg-gray-800", "p-3", "rounded-lg");
+                sessionDiv.innerText = `Session: ${session}`;
+                sessionDiv.addEventListener("click", () => displaySessionChats(session));
+                historyBox.appendChild(sessionDiv);
+            });
+        }
+
+        // Display chats for a specific session
+        function displaySessionChats(sessionKey) {
+            const chatHistory = JSON.parse(localStorage.getItem("chatHistory")) || [];
+            const sessionChats = chatHistory.filter(chat => chat.sessionKey === sessionKey);
+
+            chatBox.innerHTML = "";
+            sessionChats.forEach(chat => {
+                addMessage(chat.userMessage, "user", sessionKey);
+                addMessage(chat.aiMessage, "ai", sessionKey);
+            });
+
+            closeSlideMenu();
+        }
+
+        // Open Slide Menu
+        function openSlideMenu() {
+            slideMenu.classList.add("active");
+            body.classList.add("blurred");
+        }
+
+        // Close Slide Menu
+        function closeSlideMenu() {
+            slideMenu.classList.remove("active");
+            body.classList.remove("blurred");
+        }
+
+        // Toggle Slide Menu
+        menuToggle.addEventListener("click", () => {
+            if (slideMenu.classList.contains("active")) {
+                closeSlideMenu();
+            } else {
+                openSlideMenu();
+            }
+        });
+
+        // Copy Text to Clipboard
+        function copyToClipboard(event) {
+            const messageText = event.target.innerText;
+            navigator.clipboard.writeText(messageText)
+                .then(() => {
+                    notification.style.display = "block";
+                    setTimeout(() => {
+                        notification.style.display = "none";
+                    }, 2000);
+                })
+                .catch(err => console.error("Failed to copy text: ", err));
+        }
+
+        // Load chat history when the page loads
+        window.onload = loadChatHistory;
+    </script>
+
+</body>
+</html>

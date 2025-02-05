@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES TEAMS ACTIVITY LOGS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Animation for heading */
+        @keyframes marquee {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-100%); }
+        }
+
+        .marquee {
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            animation: marquee 8s linear infinite;
+        }
+
+        /* Profile image frame */
+        .profile-frame {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid cyan;
+        }
+
+        /* Green blinking dot */
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .blinking-dot {
+            width: 10px;
+            height: 10px;
+            background-color: limegreen;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        /* Glowing log out button */
+        .logout-btn {
+            background-color: red;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px red;
+            transition: transform 0.2s;
+        }
+
+        .logout-btn:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white flex flex-col items-center justify-center min-h-screen p-5">
+
+    <!-- Top Section -->
+    <div class="w-full flex justify-between items-center px-5">
+        <!-- Back Button -->
+        <button onclick="window.location.href='index.html'" class="text-3xl">&#8592;</button>
+
+        <!-- Profile Picture -->
+        <div class="profile-frame">
+            <img id="profile-img" src="" alt="Profile" class="w-full h-full object-cover">
+        </div>
+    </div>
+
+    <!-- Heading -->
+    <h1 class="text-3xl font-bold text-cyan-400 mt-5 marquee">𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗔𝗖𝗧𝗜𝗩𝗜𝗧𝗬 𝗟𝗢𝗚𝗦</h1>
+    <p class="text-lg text-gray-300 mt-2">Welcome to your activity log where you see all your current progress.</p>
+
+    <!-- Activity Log -->
+    <div id="activity-log" class="w-full max-w-md mt-5 space-y-3 bg-gray-800 p-5 rounded-lg shadow-lg">
+        <!-- Activities will be added dynamically here -->
+    </div>
+
+    <!-- Log Out Button -->
+    <button onclick="logout()" class="logout-btn fixed bottom-5 right-5">𝗟𝗢𝗚 𝗢𝗨𝗧</button>
+
+    <!-- JavaScript -->
+    <script>
+        // Load profile image from local storage
+        function loadProfileImage() {
+            let savedImage = localStorage.getItem("profileImage");
+            if (savedImage) {
+                document.getElementById("profile-img").src = savedImage;
+            } else {
+                document.getElementById("profile-img").src = "https://via.placeholder.com/80"; // Default placeholder
+            }
+        }
+
+        // Load activity log from local storage
+        function loadActivityLog() {
+            let activities = JSON.parse(localStorage.getItem("activityLog")) || [];
+            let logContainer = document.getElementById("activity-log");
+            logContainer.innerHTML = ""; // Clear previous logs
+
+            if (activities.length === 0) {
+                logContainer.innerHTML = "<p class='text-gray-400'>No activities yet.</p>";
+                return;
+            }
+
+            activities.forEach(activity => {
+                let activityItem = document.createElement("div");
+                activityItem.className = "flex justify-between items-center bg-gray-700 p-2 rounded-md";
+                activityItem.innerHTML = `
+                    <span>${activity}</span>
+                    <div class="blinking-dot"></div>
+                `;
+                logContainer.appendChild(activityItem);
+            });
+        }
+
+        // Log out function
+        function logout() {
+            localStorage.removeItem("activityLog"); // Clear activity log on logout
+            window.location.href = "login.html";
+        }
+
+        // Run functions on page load
+        loadProfileImage();
+        loadActivityLog();
+    </script>
+
+</body>
+</html>

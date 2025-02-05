@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES TEAMS ACTIVITY LOGS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Animation for heading */
+        @keyframes marquee {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-100%); }
+        }
+
+        .marquee {
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            animation: marquee 8s linear infinite;
+        }
+
+        /* Profile image frame */
+        .profile-frame {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid cyan;
+        }
+
+        /* Green blinking dot */
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .blinking-dot {
+            width: 10px;
+            height: 10px;
+            background-color: limegreen;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        /* Glowing log out button */
+        .logout-btn {
+            background-color: red;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px red;
+            transition: transform 0.2s;
+        }
+
+        .logout-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Scrollable activity logs */
+        .scrollable-logs {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white flex flex-col items-center justify-center min-h-screen p-5">
+
+    <!-- Top Section -->
+    <div class="w-full flex justify-between items-center px-5">
+        <!-- Back Button -->
+        <button onclick="logActivity('Navigated to Home'); window.location.href='index.html'" class="text-3xl">&#8592;</button>
+
+        <!-- Profile Picture -->
+        <div class="profile-frame">
+            <img id="profile-img" src="" alt="Profile" class="w-full h-full object-cover">
+        </div>
+    </div>
+
+    <!-- Heading -->
+    <h1 class="text-3xl font-bold text-cyan-400 mt-5 marquee">𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗔𝗖𝗧𝗜𝗩𝗜𝗧𝗬 𝗟𝗢𝗚𝗦</h1>
+    <p class="text-lg text-gray-300 mt-2">Welcome to your activity log where you see all your current progress.</p>
+
+    <!-- Device Information Box -->
+    <div id="device-info" class="w-full max-w-md mt-5 bg-gray-800 p-5 rounded-lg shadow-lg">
+        <h2 class="text-xl font-bold text-cyan-400">Device Information</h2>
+        <ul class="space-y-2 mt-3">
+            <li><strong>Device Name:</strong> <span id="device-name">Loading...</span></li>
+            <li><strong>Battery Level:</strong> <span id="battery-level">Loading...</span></li>
+            <li><strong>Charging Status:</strong> <span id="charging-status">Loading...</span></li>
+            <li><strong>Time:</strong> <span id="time">Loading...</span></li>
+            <li><strong>Date:</strong> <span id="date">Loading...</span></li>
+        </ul>
+    </div>
+
+    <!-- Activity Log Box -->
+    <div id="activity-log" class="w-full max-w-md mt-5 space-y-3 bg-gray-800 p-5 rounded-lg shadow-lg">
+        <h2 class="text-xl font-bold text-cyan-400">Activity Log</h2>
+        <div id="log-container" class="scrollable-logs">
+            <!-- Activities will be added dynamically here -->
+        </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="buttons-container mt-5 space-y-3">
+        <button class="button" onclick="logActivity('Navigated to WhatsApp Channel'); location.href='/whatsapp'">𝗪𝗛𝗔𝗧𝗦𝗔𝗣𝗣 𝗖𝗛𝗔𝗡𝗡𝗘𝗟</button>
+        <button class="button" onclick="logActivity('Navigated to Telegram Channel'); location.href='/telegram'">𝗧𝗘𝗟𝗘𝗚𝗥𝗔𝗠 𝗖𝗛𝗔𝗡𝗡𝗘𝗟</button>
+        <button class="button" onclick="logActivity('Navigated to YouTube Channel'); location.href='/youtube'">𝗬𝗢𝗨𝗧𝗨𝗕𝗘 𝗖𝗛𝗔𝗡𝗡𝗘𝗟</button>
+        <button class="button" onclick="logActivity('Navigated to WhatsApp Bots'); location.href='/bots'">𝗪𝗛𝗔𝗧𝗦𝗔𝗣𝗣 𝗕𝗢𝗧𝗦</button>
+        <button class="button" onclick="logActivity('Navigated to Premium Apps'); location.href='/premium'">𝗣𝗥𝗘𝗠𝗜𝗨𝗠 𝗔𝗣𝗣𝗦</button>
+        <button class="button" onclick="logActivity('Navigated to Tools'); location.href='/tools'">𝗧𝗢𝗢𝗟𝗦</button>
+        <button class="button" onclick="logActivity('Navigated to AI Models'); location.href='/ai'">𝗔𝗜 𝗠𝗢𝗗𝗘𝗟𝗦</button>
+        <button class="button" onclick="logActivity('Navigated to Games'); location.href='/games'">𝗚𝗔𝗠𝗘𝗦</button>
+        <button class="button" onclick="logActivity('Navigated to Activity Logs'); location.href='/activity'">𝗔𝗖𝗧𝗜𝗩𝗜𝗧𝗬</button>
+        <button class="button" onclick="logActivity('Navigated to Profile'); location.href='/profile'">𝗣𝗥𝗢𝗙𝗜𝗟𝗘</button>
+        <button class="button" onclick="logActivity('Navigated to About Us'); location.href='/about'">𝗔𝗕𝗢𝗨𝗧 𝗨𝗦</button>
+        <button class="button" onclick="logActivity('Logged Out'); logout()">𝗘𝗫𝗜</button>
+    </div>
+
+    <!-- Log Out Button -->
+    <button onclick="logout()" class="logout-btn fixed bottom-5 right-5">𝗟𝗢𝗚 𝗢𝗨𝗧</button>
+
+    <!-- JavaScript -->
+    <script>
+        // Log activity and display in activity log box
+        function logActivity(activity) {
+            const logContainer = document.getElementById("log-container");
+            const newLog = document.createElement("div");
+            newLog.classList.add("text-gray-300", "p-2", "bg-gray-700", "rounded", "mb-2");
+            newLog.textContent = activity;
+            logContainer.appendChild(newLog);
+        }
+
+        // Load profile image from local storage
+        function loadProfileImage() {
+            let userData = JSON.parse(localStorage.getItem("userData")) || {};
+            if (userData.profilePic) {
+                document.getElementById("profile-img").src = userData.profilePic;
+            } else {
+                document.getElementById("profile-img").src = "https://via.placeholder.com/80"; // Default placeholder
+            }
+        }
+
+        // Get Device Information (Device name, battery level, charging status, etc.)
+        function loadDeviceInfo() {
+            // Device Name
+            const deviceName = navigator.userAgent;
+            document.getElementById("device-name").textContent = deviceName;
+
+            // Battery Level (mocked as browser API for battery level is not always supported)
+            const batteryLevel = 75; // Replace with actual API if needed
+            document.getElementById("battery-level").textContent = batteryLevel + "%";
+
+            // Charging Status (mocked)
+            const chargingStatus = true; // Replace with actual API if needed
+            document.getElementById("charging-status").textContent = chargingStatus ? "Charging" : "Not Charging";
+
+            // Time and Date
+            const currentTime = new Date().toLocaleTimeString();
+            const currentDate = new Date().toLocaleDateString();
+            document.getElementById("time").textContent = currentTime;
+            document.getElementById("date").textContent = currentDate;
+        }
+
+        // Call functions on page load
+        window.onload = function() {
+            loadProfileImage();
+            loadDeviceInfo();
+        }
+
+        // Log out function (to be implemented)
+        function logout() {
+            // Clear user data or handle session logout
+            window.location.href = '/index.html'; // Example redirection to login page
+        }
+    </script>
+</body>
+</html>
+``

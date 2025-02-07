@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a1a, #3a3a3a);
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        @keyframes slideText {
+            0% { transform: translateX(100px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        .animated-text {
+            animation: slideText 1s ease-out;
+        }
+
+        .mode-option {
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .mode-option::before {
+            content: "●";
+            color: red;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: bold;
+            background: rgba(255, 0, 0, 0.2);
+            border-radius: 50%;
+            margin-right: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .selected::before {
+            opacity: 1;
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+        }
+        .cell {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            border: 2px solid white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .win {
+            background-color: rgba(0, 255, 0, 0.5);
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen">
+
+    <div id="mode-selection" class="text-center">
+        <h1 class="text-3xl font-bold animated-text">Select Mode</h1>
+        <div class="mt-4">
+            <p class="mode-option" onclick="selectMode('easy', this)">Easy</p>
+            <p class="mode-option" onclick="selectMode('medium', this)">Medium</p>
+            <p class="mode-option" onclick="selectMode('hard', this)">Hard</p>
+        </div>
+        <button id="start-btn" onclick="startGame()" class="bg-gray-700 text-white px-4 py-2 mt-4 rounded cursor-not-allowed" disabled>START</button>
+    </div>
+
+    <div id="game-container" class="hidden text-center">
+        <div class="w-full flex justify-between px-5 mt-5">
+            <button onclick="window.location.href='games.html'" class="text-3xl">&#8592;</button>
+            <div id="timer" class="text-xl">00:00</div>
+        </div>
+
+        <div class="text-xl mt-4">
+            <p id="player-info"></p>
+        </div>
+
+        <div class="game-board mt-5">
+            <div class="cell" onclick="makeMove(0)"></div>
+            <div class="cell" onclick="makeMove(1)"></div>
+            <div class="cell" onclick="makeMove(2)"></div>
+            <div class="cell" onclick="makeMove(3)"></div>
+            <div class="cell" onclick="makeMove(4)"></div>
+            <div class="cell" onclick="makeMove(5)"></div>
+            <div class="cell" onclick="makeMove(6)"></div>
+            <div class="cell" onclick="makeMove(7)"></div>
+            <div class="cell" onclick="makeMove(8)"></div>
+        </div>
+
+        <div class="mt-4 flex gap-4">
+            <button id="stop-btn" onclick="stopGame()" class="bg-red-500 px-4 py-2 rounded">STOP</button>
+            <button id="resume-btn" onclick="resumeGame()" class="bg-blue-500 px-4 py-2 rounded">START</button>
+            <button id="restart-btn" onclick="restartGame()" class="bg-yellow-500 px-4 py-2 rounded">RESTART</button>
+        </div>
+    </div>
+
+    <script>
+        let mode = null;
+        let gameActive = false;
+        let timerInterval;
+        let seconds = 0;
+        let board = Array(9).fill("");
+        let player = "X";
+        let computer = "O";
+
+        function selectMode(selectedMode, element) {
+            mode = selectedMode;
+            document.querySelectorAll(".mode-option").forEach(p => p.classList.remove("selected"));
+            element.classList.add("selected");
+            document.getElementById("start-btn").disabled = false;
+        }
+
+        function startGame() {
+            document.getElementById("mode-selection").classList.add("hidden");
+            document.getElementById("game-container").classList.remove("hidden");
+            gameActive = true;
+            board.fill("");
+            document.querySelectorAll(".cell").forEach(cell => cell.textContent = "");
+            startTimer();
+        }
+
+        function makeMove(index) {
+            if (!gameActive || board[index] !== "") return;
+            board[index] = player;
+            updateBoard();
+            if (!checkWin()) setTimeout(computerMove, 500);
+        }
+
+        function computerMove() {
+            if (!gameActive) return;
+            let bestMove = getBestMove();
+            if (bestMove !== -1) {
+                board[bestMove] = computer;
+                updateBoard();
+                checkWin();
+            }
+        }
+
+        function getBestMove() {
+            const winPatterns = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8],
+                [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                [0, 4, 8], [2, 4, 6]
+            ];
+
+            for (let pattern of winPatterns) {
+                let [a, b, c] = pattern;
+                let values = [board[a], board[b], board[c]];
+                if (values.filter(v => v === computer).length === 2 && values.includes("")) return pattern[values.indexOf("")];
+                if (values.filter(v => v === player).length === 2 && values.includes("")) return pattern[values.indexOf("")];
+            }
+            return board.indexOf("");
+        }
+
+        function updateBoard() {
+            document.querySelectorAll(".cell").forEach((cell, index) => {
+                cell.textContent = board[index];
+            });
+        }
+
+        function checkWin() {
+            const winPatterns = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+            for (let pattern of winPatterns) {
+                let [a, b, c] = pattern;
+                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                    pattern.forEach(idx => document.querySelectorAll(".cell")[idx].classList.add("win"));
+                    gameActive = false;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function startTimer() { seconds = 0; timerInterval = setInterval(() => document.getElementById("timer").textContent = `00:${++seconds}`, 1000); }
+        function stopGame() { gameActive = false; clearInterval(timerInterval); }
+        function resumeGame() { gameActive = true; startTimer(); }
+        function restartGame() { stopGame(); startGame(); }
+    </script>
+</body>
+</html>

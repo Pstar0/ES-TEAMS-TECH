@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truth or Dare</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #a1c4fd, #c2e9fb); /* Cool light blue gradient */
+            color: #333;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .game-container {
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .input-container {
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 10px;
+            margin: 5px;
+            border: 2px solid #007BFF;
+            border-radius: 5px;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        input::placeholder {
+            color: #007BFF;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .start-btn {
+            background-color: green;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .question-box {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 20px;
+            border: 2px solid black;
+            border-radius: 10px;
+            min-height: 80px;
+            background: white;
+            color: black;
+            width: 80%;
+        }
+
+        .truth-btn, .dare-btn {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.3s;
+        }
+
+        .truth-btn {
+            background-color: blue;
+            color: white;
+        }
+
+        .dare-btn {
+            background-color: red;
+            color: white;
+        }
+
+        .truth-btn:disabled, .dare-btn:disabled {
+            background-color: gray;
+            cursor: not-allowed;
+        }
+
+        .truth-btn:hover:not(:disabled), .dare-btn:hover:not(:disabled) {
+            transform: scale(1.1);
+        }
+
+        .timer {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: transform 0.3s;
+        }
+
+        .warning {
+            color: red;
+            animation: shake 0.5s infinite alternate;
+        }
+
+        @keyframes shake {
+            from { transform: translateX(-5px); }
+            to { transform: translateX(5px); }
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 2rem;
+            color: black;
+            cursor: pointer;
+        }
+
+        /* Moving Header */
+        .moving-header {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            background: black;
+            padding: 10px 0;
+            animation: moveText 10s linear infinite;
+        }
+
+        @keyframes moveText {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-100%); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Moving Header -->
+    <div class="moving-header">𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗧𝗥𝗨𝗧𝗛 𝗔𝗡𝗗 𝗗𝗔𝗥𝗘</div>
+
+    <!-- Back Button -->
+    <div class="back-btn" onclick="location.href='games.html'">⬅</div>
+
+    <div class="game-container">
+        <h1 class="text-3xl font-bold mb-4">Truth or Dare</h1>
+
+        <!-- Player Name Inputs -->
+        <div class="input-container">
+            <input type="text" id="player1" placeholder="Enter Player 1 Name">
+            <input type="text" id="player2" placeholder="Enter Player 2 Name">
+            <button class="start-btn" onclick="startGame()">Start Game</button>
+        </div>
+
+        <!-- Game Area -->
+        <div id="game-area" style="display: none;">
+            <h2 id="current-player" class="text-2xl font-bold"></h2>
+            <div id="question-box" class="question-box">Waiting for player...</div>
+            <button class="truth-btn" onclick="fetchTruth()">TRUTH</button>
+            <button class="dare-btn" onclick="fetchDare()">DARE</button>
+            <div id="timer" class="timer">15</div>
+        </div>
+    </div>
+
+    <script>
+        let players = [];
+        let currentPlayerIndex = 0;
+        let timerInterval;
+        let buttonsDisabled = false;
+
+        function startGame() {
+            let p1 = document.getElementById("player1").value.trim();
+            let p2 = document.getElementById("player2").value.trim();
+
+            if (!p1 || !p2) {
+                alert("Both players must enter their names!");
+                return;
+            }
+
+            players = [p1, p2];
+            document.querySelector(".input-container").style.display = "none";
+            document.getElementById("game-area").style.display = "block";
+            nextTurn();
+        }
+
+        function nextTurn() {
+            clearInterval(timerInterval);
+            document.getElementById("timer").textContent = "15";
+            document.getElementById("timer").classList.remove("warning");
+
+            let currentPlayer = players[currentPlayerIndex];
+            document.getElementById("current-player").textContent = `${currentPlayer}, it's your turn! Choose:`;
+            document.getElementById("question-box").textContent = "Waiting for selection...";
+            
+            // Enable buttons
+            document.querySelector(".truth-btn").disabled = false;
+            document.querySelector(".dare-btn").disabled = false;
+        }
+
+        function startTimer() {
+            let timeLeft = 15;
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                let timerElement = document.getElementById("timer");
+                timerElement.textContent = timeLeft;
+
+                if (timeLeft <= 5) {
+                    timerElement.classList.add("warning");
+                }
+
+                if (timeLeft === 0) {
+                    clearInterval(timerInterval);
+                    nextPlayer();
+                }
+            }, 1000);
+        }
+
+        function disableButtons() {
+            document.querySelector(".truth-btn").disabled = true;
+            document.querySelector(".dare-btn").disabled = true;
+        }
+
+        function fetchTruth() {
+            disableButtons();
+            fetch("https://api.davidcyriltech.my.id/truth")
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("question-box").textContent = data.truth;
+                    startTimer();
+                })
+                .catch(() => {
+                    document.getElementById("question-box").textContent = "Error fetching truth.";
+                });
+        }
+
+        function fetchDare() {
+            disableButtons();
+            fetch("https://api.davidcyriltech.my.id/dare")
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("question-box").textContent = data.dare;
+                    startTimer();
+                })
+                .catch(() => {
+                    document.getElementById("question-box").textContent = "Error fetching dare.";
+                });
+        }
+
+        function nextPlayer() {
+            currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+            nextTurn();
+        }
+    </script>
+
+</body>
+</html>

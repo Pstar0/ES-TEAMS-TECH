@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .zoom-text {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #00f; /* Neon blue */
+            text-shadow: 0 0 5px #00f, 0 0 10px #00f, 0 0 20px #00f;
+            animation: zoomInOut 1.5s infinite alternate ease-in-out;
+        }
+
+        @keyframes zoomInOut {
+            from { transform: scale(1); }
+            to { transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="zoom-text">COMING SOON</h1>
+
+    <script>
+        setTimeout(() => {
+            window.location.href = "games.html";
+        }, 3000);
+    </script>
+
+</body>
+</html>

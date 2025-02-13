@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES TEAMS TECH SUPPORT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Animation for title moving from right to left */
+        @keyframes moveRightToLeft {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .move-title {
+            animation: moveRightToLeft 5s linear infinite;
+        }
+    </style>
+</head>
+<body class="bg-blue-900 text-white">
+
+    <!-- Title Moving from Right to Left -->
+    <div class="text-center mt-10">
+        <h1 class="text-4xl font-bold move-title">
+            𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗧𝗘𝗖𝗛 𝗦𝗨𝗣𝗣𝗢𝗥𝗧
+        </h1>
+    </div>
+
+    <!-- Main Content (Chat will appear here) -->
+    <div class="flex justify-center items-center min-h-screen">
+        <div class="w-full max-w-lg bg-blue-800 p-5 rounded-lg shadow-xl">
+            <!-- Chaport Live Chat Script -->
+            <script type="text/javascript">
+                (function(w,d,v3){
+                    w.chaportConfig = {
+                        appId: '6512c90d8bbcce468960ab73'
+                    };
+
+                    if(w.chaport)return;v3=w.chaport={};v3._q=[];v3._l={};v3.q=function(){v3._q.push(arguments)};v3.on=function(e,fn){if(!v3._l[e])v3._l[e]=[];v3._l[e].push(fn)};var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://app.chaport.com/javascripts/insert.js';var ss=d.getElementsByTagName('script')[0];ss.parentNode.insertBefore(s,ss)})(window, document);
+            </script>
+            <!-- End Chaport Live Chat Script -->
+        </div>
+    </div>
+
+</body>
+</html>

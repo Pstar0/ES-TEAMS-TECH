@@ -39,7 +39,7 @@
             50% { opacity: 1; }
         }
 
-        /* AI Text Animation */
+       /* AI Text Animation */
         .ai-text {
             opacity: 0;
             transform: translateX(100%);
@@ -57,8 +57,8 @@
 <body class="bg-gray-900 text-white flex items-center justify-center h-screen">
 
     <div class="w-full max-w-lg bg-gray-800 p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-bold text-center mb-4 ai-text">𝗪𝗘𝗟𝗖𝗢𝗠𝗘 𝗧𝗢 𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗔𝗜 +</h2>
-        <p class="text-center text-gray-400 mb-6 ai-text">I am an Artificial Intelligence built by ES TEAMS TECH</p>
+        <h2 class="text-2xl font-bold text-center mb-4">𝗪𝗘𝗟𝗖𝗢𝗠𝗘 𝗧𝗢 𝗘𝗦 𝗧𝗘𝗔𝗠𝗦 𝗔𝗜</h2>
+        <p class="text-center text-gray-400 mb-6">I am an Artificial Intelligence built by ES TEAMS TECH</p>
 
         <div id="chat-box" class="space-y-4 max-h-96 overflow-y-auto p-2 bg-gray-700 rounded-lg">
             <div class="flex items-start space-x-2">
@@ -73,74 +73,98 @@
                 class="flex-1 p-3 rounded-lg bg-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none text-white"
                 oninput="toggleSendButton()">
             <button id="send-button" onclick="sendMessage()"
-                class="ml-2 bg-gray-600 px-4 py-2 rounded-lg text-white font-bold" disabled>
+                class="ml-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-white font-bold send-btn" disabled>
                 Send
             </button>
         </div>
     </div>
 
     <script>
-        const chatBox = document.getElementById("chat-box");
-        const userInput = document.getElementById("user-input");
-        const sendButton = document.getElementById("send-button");
-
         function toggleSendButton() {
-            if (userInput.value.trim() === "") {
-                sendButton.disabled = true;
-                sendButton.classList.add("bg-gray-600");
-                sendButton.classList.remove("bg-blue-600", "hover:bg-blue-700");
-            } else {
-                sendButton.disabled = false;
-                sendButton.classList.remove("bg-gray-600");
-                sendButton.classList.add("bg-blue-600", "hover:bg-blue-700");
+            document.getElementById("send-button").disabled = document.getElementById("user-input").value.trim() === "";
+        }
+
+        function getRequestData() {
+            const requestData = JSON.parse(localStorage.getItem("requestData")) || { count: 0, timestamp: null };
+            return requestData;
+        }
+
+        function updateRequestData() {
+            const now = Date.now();
+            let requestData = getRequestData();
+
+            if (!requestData.timestamp || now - requestData.timestamp > 24 * 60 * 60 * 1000) {
+                requestData = { count: 0, timestamp: now }; // Reset after 24 hours
             }
+
+            requestData.count += 1;
+            localStorage.setItem("requestData", JSON.stringify(requestData));
+
+            return requestData;
+        }
+
+        function getRemainingTime() {
+            const requestData = getRequestData();
+            if (!requestData.timestamp) return 0;
+            const elapsedTime = Date.now() - requestData.timestamp;
+            const remainingTime = 24 * 60 * 60 * 1000 - elapsedTime;
+
+            if (remainingTime <= 0) {
+                localStorage.removeItem("requestData"); // Clear the count when time reaches zero
+                return 0;
+            }
+
+            return remainingTime;
+        }
+
+        function formatTime(ms) {
+            const hours = Math.floor(ms / (1000 * 60 * 60));
+            const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
+            return `${hours} hours ${minutes} minutes`;
         }
 
         async function sendMessage() {
-            const query = userInput.value.trim();
+            const query = document.getElementById("user-input").value.trim().toLowerCase();
             if (!query) return;
 
+            const requestData = getRequestData();
+
+            if (requestData.count >= 50) {
+                const remainingTime = getRemainingTime();
+                addMessage(`Limit Exceeded, Kindly use ES TEAMS AI + or wait for ${formatTime(remainingTime)}`, "ai");
+                return;
+            }
+
+            updateRequestData();
+
             addMessage(query, "user");
-            userInput.value = "";
+            document.getElementById("user-input").value = "";
             toggleSendButton();
 
             const typingElement = addTypingAnimation();
 
             try {
-                let responseMessage = "";
+                const creatorQuestions = [
+                    "who created you", "when were you created", "who developed you", "who fixed you", "who trained you", "who pet you", "who organized you", "who coded you", "who grew you", "who took care of you", "when last were you created", "who made you", "who built you",
+                    "who is your creator", "when were you built", "who is the developer", "who designed you", "when was your creation"
+                ];
 
-                if (query.startsWith(".play ")) {
-                    const song = query.replace(".play ", "").trim();
-                    const audioResponse = await fetch(`https://api.davidcyriltech.my.id/download/ytmp3?url=${encodeURIComponent(song)}`);
-                    const audioData = await audioResponse.json();
-                    localStorage.setItem("audio", audioData.download_url);
-                    responseMessage = `<button onclick="playAudio()" class="bg-blue-500 text-white px-4 py-2 rounded">▶ Play</button>`;
-                } else if (query.startsWith(".video ")) {
-                    const video = query.replace(".video ", "").trim();
-                    const videoResponse = await fetch(`https://api.davidcyriltech.my.id/download/ytmp4?url=${encodeURIComponent(video)}`);
-                    const videoData = await videoResponse.json();
-                    localStorage.setItem("video", videoData.download_url);
-                    responseMessage = `<button onclick="playVideo()" class="bg-blue-500 text-white px-4 py-2 rounded">▶ Play Video</button>`;
-                } else if (query.startsWith(".wallpaper ")) {
-                    const searchTerm = query.replace(".wallpaper ", "").trim();
-                    const wallpaperResponse = await fetch(`https://api.davidcyriltech.my.id/search/wallpaper?text=${encodeURIComponent(searchTerm)}`);
-                    const wallpaperData = await wallpaperResponse.json();
-                    responseMessage = `<img src="${wallpaperData.url}" alt="Wallpaper" class="w-full h-auto rounded-lg"/>`;
-                } else if (query.startsWith(".url ")) {
-                    const urlToShorten = query.replace(".url ", "").trim();
-                    const tinyUrlResponse = await fetch(`https://api.davidcyriltech.my.id/tinyurl?url=${encodeURIComponent(urlToShorten)}`);
-                    const tinyUrlData = await tinyUrlResponse.json();
-                    responseMessage = `Here is your shortened URL: <a href="${tinyUrlData.shortened_url}" target="_blank" class="text-blue-400">${tinyUrlData.shortened_url}</a>`;
-                } else {
-                    const apiUrl = `https://api.davidcyriltech.my.id/ai/gpt3?text=${encodeURIComponent(query)}`;
-                    const response = await fetch(apiUrl);
-                    const jsonData = await response.json();
-                    responseMessage = jsonData.response || "Sorry, I couldn't process your request.";
+                const responseMessage = creatorQuestions.some(q => query.includes(q))
+                    ? "I was built by ES TEAMS TECH on 1st Feb 2025."
+                    : null;
+
+                if (responseMessage) {
+                    removeTypingAnimation(typingElement);
+                    addMessage(responseMessage, "ai");
+                    return;
                 }
 
-                removeTypingAnimation(typingElement);
-                addMessage(responseMessage, "ai");
+                const apiUrl = `https://api.davidcyriltech.my.id/ai/gpt3?text=${encodeURIComponent(query)}`;
+                const response = await fetch(apiUrl);
+                const jsonData = await response.json();
 
+                removeTypingAnimation(typingElement);
+                addMessage(jsonData.response || "Sorry, I couldn't process your request.", "ai");
             } catch (error) {
                 console.error("Error fetching API response:", error);
                 removeTypingAnimation(typingElement);
@@ -149,6 +173,7 @@
         }
 
         function addMessage(text, sender) {
+            const chatBox = document.getElementById("chat-box");
             const messageDiv = document.createElement("div");
             messageDiv.classList.add("flex", "items-start", "space-x-2");
 
@@ -164,6 +189,7 @@
         }
 
         function addTypingAnimation() {
+            const chatBox = document.getElementById("chat-box");
             const typingDiv = document.createElement("div");
             typingDiv.classList.add("typing", "space-x-1", "ml-2");
 
@@ -180,16 +206,6 @@
 
         function removeTypingAnimation(element) {
             if (element) element.remove();
-        }
-
-        function playAudio() {
-            const audioUrl = localStorage.getItem("audio");
-            if (audioUrl) new Audio(audioUrl).play();
-        }
-
-        function playVideo() {
-            const videoUrl = localStorage.getItem("video");
-            window.open(videoUrl, "_blank");
         }
     </script>
 
